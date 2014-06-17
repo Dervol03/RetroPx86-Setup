@@ -111,13 +111,10 @@ function rps_install_esthemes()
     # TODO must be adapted to new theming system of ES2
     printMsg "Installing themes for Emulation Station"
     # wget --progress=bar:force -O - 'http://blog.petrockblock.com/?wpdmdl=2' | tar jx --overwrite -C $home/
-    wget -O themesDownload.tar.bz2 http://blog.petrockblock.com/?wpdmdl=2
-    tar -jxvf themesDownload.tar.bz2 -C $home/   
-    rm themesDownload.tar.bz2 
-
-    # TODO can be removed?
-    # chgrp -R $user $home/.emulationstation
-    # chown -R $user $home/.emulationstation
+    wget -O themesDownload.zip http://blog.petrockblock.com/?wpdmdl=8033
+    unzip themesDownload.zip -d "/etc/emulationstation/"
+    rm themesDownload.zip
+    chmod -R 755 "/etc/emulationstation/themes/"
 }
 
 # shows help information in the console
@@ -272,11 +269,7 @@ function rps_main_binaries()
     sup_configure_snesdev
     rc_fixForXBian
     rc_disableTimeouts
-    
-    # install RetroArch
-    # install -m755 $rootdir/emulators/RetroArch/retroarch /usr/local/bin
-    # install -m644 $rootdir/emulators/RetroArch/retroarch.cfg /etc/retroarch.cfg
-    # install -m755 $rootdir/emulators/RetroArch/retroarch-zip /usr/local/bin
+
     em_configureRetroArch
     lr_configure_snes
     rps_install_esthemes
@@ -305,10 +298,6 @@ function rps_main_binaries()
     em_configure_rpix86
     sup_configure_esconfig
     lr_configure_doom
-
-    # TODO can be removed?
-    # chgrp -R $user $rootdir
-    # chown -R $user $rootdir
 
     rc_setAvoidSafeMode
     sup_install_runcommandscript
@@ -523,10 +512,6 @@ function rps_main_options()
                 esac
             done
 
-            # TODO can be removed?
-            # chgrp -R $user $rootdir
-            # chown -R $user $rootdir
-
             rps_createDebugLog
 
         } 2>&1 | tee >(gzip --stdout > $scriptdir/logs/run_$now.log.gz)
@@ -540,10 +525,6 @@ function rps_main_options()
         fi
 
         dialog --backtitle "PetRockBlock.com - RetroPie Setup. Installation folder: $rootdir for user $user" --msgbox "Finished tasks.\nStart the front end with 'emulationstation'. You now have to copy roms to the roms folders. Have fun!" 20 60    
-
-        # TODO can be removed?
-        # chown -R $user $scriptdir/logs/run_$now.log.gz
-        # chgrp -R $user $scriptdir/logs/run_$now.log.gz
     fi
 }
 
