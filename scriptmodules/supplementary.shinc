@@ -36,31 +36,14 @@ function install_APTPackages() {
 # 301, PackageRepository ---------------------
 
 function install_PackageRepository() {
-	printMsg "Installing Package Repository"
-
-	# install repository helper package
-	apt-get install -y reprepro || return 1
-
-	# Create repository
-	mkdir RetroPx86Repo || return 1
-	mkdir RetroPx86Repo/conf || return 1
-	cat >> RetroPx86Repo/conf/distributions << _EOF_
-Origin: apt.petrockblock.com
-Label: apt repository
-Codename: wheezy/rpi
-Architectures: armhf other source
-Components: main
-Description: RetroPx86 Raspbian package repository
-SignWith: yes
-Pull: wheezy/rpi
-_EOF_
+	printMsg "Skipping Raspberry package repo, only kept for conpatibility purposes for the moment"
 }
 
 # 302, SDL 2.0.1
 
 function depen_sdl() {
     printMsg "Getting depencies of sdl"
-    apt-get install -y libudev-dev libasound2-dev libdbus-1-dev libraspberrypi0 libraspberrypi-bin libraspberrypi-dev    
+    apt-get install -y libudev-dev libasound2-dev libdbus-1-dev
 }
 
 function sources_sdl() {
