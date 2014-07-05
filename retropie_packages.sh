@@ -47,12 +47,9 @@ __ERRMSGS=""
 __INFMSGS=""
 __doReboot=0
 
-__default_cflags="-O2 -pipe -mfpu=vfp -march=armv6j -mfloat-abi=hard"
 __default_asflags=""
-__default_gcc_version="4.7"
+__default_gcc_version="4.8.2"
 
-[[ -z "${CFLAGS}"        ]] && export CFLAGS="${__default_cflags}"
-[[ -z "${CXXFLAGS}" ]] && export CXXFLAGS="${__default_cflags}"
 [[ -z "${ASFLAGS}"         ]] && export ASFLAGS="${__default_asflags}"
 
 # ==============================================================================

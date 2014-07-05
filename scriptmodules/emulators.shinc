@@ -25,7 +25,7 @@
 
 function depen_retroarch() {
     printMsg "Getting depencies of udev/eudev"
-    apt-get install -y libudev-dev libxkbcommon-dev
+    apt-get install -y libudev-dev g++ pkg-config freeglut3 libxkbcommon-dev
     cat > "/etc/udev/rules.d/99-evdev.rules" << _EOF_
 KERNEL=="event*", NAME="input/%k", MODE="666"
 _EOF_
@@ -40,7 +40,7 @@ function sources_retroarch() {
 function build_retroarch() {
     printMsg "Building RetroArch"
     pushd "$rootdir/emulators/RetroArch"
-    ./configure --prefix="$rootdir/emulators/RetroArch/installdir" --disable-x11 --disable-oss --disable-pulse --enable-floathard
+    ./configure --prefix="$rootdir/emulators/RetroArch/installdir" --disable-x11 --disable-oss --disable-pulse
     make clean
     make
     popd
