@@ -191,21 +191,19 @@ rps_availFreeDiskSpace 800000
 
 while true; do
     cmd=(dialog --backtitle "PetRockBlock.com - RetroPx86 Setup. Installation folder: $rootdir for user $user" --menu "Choose installation either based on binaries or on sources." 22 76 16)
-    options=(1 "Binaries-based INSTALLATION (faster, but possibly not up-to-date)"
-             2 "Source-based INSTALLATION (16-20 hours (!), but up-to-date versions)"
-             3 "SETUP (only if you already have run one of the installations above)"
-             4 "UPDATE RetroPx86 Setup script"
-             5 "UPDATE RetroPx86 Binaries"
-             7 "Perform REBOOT" )
+    options=(1 "Source-based INSTALLATION (16-20 hours (!), but up-to-date versions)"
+             2 "SETUP (only if you already have run one of the installations above)"
+             3 "UPDATE RetroPx86 Setup script"
+             4 "UPDATE RetroPx86 Binaries"
+             5 "Perform REBOOT" )
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choices" != "" ]; then
         case $choices in
-            1) rps_main_binaries ;;
-            2) rps_main_options ;;
-            3) rps_main_setup ;;
-            4) rps_main_updatescript ;;
-            5) rps_downloadBinaries ;;
-            7) rps_main_reboot ;;
+            1) rps_main_options ;;
+            2) rps_main_setup ;;
+            3) rps_main_updatescript ;;
+            4) rps_downloadBinaries ;;
+            5) rps_main_reboot ;;
         esac
     else
         break

@@ -291,7 +291,6 @@ rp_registerFunction "212" "Mednafen PCE Fast LibretroCore " ""                  
 # Supplementary components (supplementary.shinc)
 rp_registerFunction "300" "Update APT packages            " ""                       ""                         ""                       "install_APTPackages"       ""                           ""
 rp_registerFunction "301" "Package Repository             " ""                       ""                         ""                       "install_PackageRepository" ""                           ""
-rp_registerFunction "302" "SDL 2.0.1                      " "depen_sdl"              "sources_sdl"              "build_sdl"              "install_sdl"               ""                           ""
 rp_registerFunction "303" "EmulationStation               " "depen_emulationstation" "sources_EmulationStation" "build_EmulationStation" "install_EmulationStation"  "configure_EmulationStation" "package_EmulationStation"
 rp_registerFunction "304" "EmulationStation Theme Simple  " ""                       ""                         ""                       "install_ESThemeSimple"     ""                           ""
 rp_registerFunction "305" "Video mode script 'runcommand' " ""                       ""                         ""                       "install_runcommand"        ""                           ""

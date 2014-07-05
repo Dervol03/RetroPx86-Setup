@@ -78,7 +78,7 @@ function depen_emulationstation() {
     printMsg "Getting dependencies for emulationstation"
     apt-get install -y libboost-system-dev libboost-filesystem-dev libboost-date-time-dev \
                        libfreeimage-dev libfreetype6-dev libeigen3-dev libcurl4-openssl-dev \
-                       libasound2-dev cmake g++-4.7    
+                       libasound2-dev cmake g++-4.7 freeglut3 libsdl1.2-dev
 }
 
 function sources_EmulationStation() {
