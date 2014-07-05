@@ -213,7 +213,7 @@ for x in range(0, 7):
 		parser  = configparser.ConfigParser()
 		parser.read_string(config)
 			
-		# Add config to retroarch autoconfig /RetroPie/emulators/RetroArch/configs/*.cfg
+		# Add config to retroarch autoconfig /RetroPx86/emulators/RetroArch/configs/*.cfg
 		WriteAutoConfig(parser)	
 			
 		# Add config to emulationstation config /.emulationstation/es_input.cfg
@@ -222,7 +222,7 @@ for x in range(0, 7):
 		# Add config to gngeo config /.gngeo/gngeorc
 		# WriteGNGEO(parser, x)
 
-		# Add config to dgen /RetroPie/emulators/RetroArch/configs/dgenrc
+		# Add config to dgen /RetroPx86/emulators/RetroArch/configs/dgenrc
 		# WriteDGEN(parser)
 exit()	
 ########################################################################################

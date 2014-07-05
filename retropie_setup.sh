@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-#  RetroPie-Setup - Shell script for initializing Raspberry Pi 
+#  RetroPx86-Setup - Shell script for initializing Raspberry Pi 
 #  with RetroArch, various cores, and EmulationStation (a graphical 
 #  front end).
 # 
 #  (c) Copyright 2012-2014  Florian Müller (contact@petrockblock.com)
 # 
-#  RetroPie-Setup homepage: https://github.com/petrockblog/RetroPie-Setup
+#  RetroPx86-Setup homepage: https://github.com/Dervol03/RetroPx86-Setup
 # 
-#  Permission to use, copy, modify and distribute RetroPie-Setup in both binary and
+#  Permission to use, copy, modify and distribute RetroPx86-Setup in both binary and
 #  source form, for non-commercial purposes, is hereby granted without fee,
 #  providing that this license information and copyright notice appear with
 #  all copies and any derived work.
@@ -17,9 +17,9 @@
 #  warranty. In no event shall the authors be held liable for any damages
 #  arising from the use of this software.
 # 
-#  RetroPie-Setup is freeware for PERSONAL USE only. Commercial users should
+#  RetroPx86-Setup is freeware for PERSONAL USE only. Commercial users should
 #  seek permission of the copyright holders first. Commercial use includes
-#  charging money for RetroPie-Setup or software derived from RetroPie-Setup.
+#  charging money for RetroPx86-Setup or software derived from RetroPx86-Setup.
 # 
 #  The copyright holders request that bug fixes and improvements to the code
 #  should be forwarded to them so everyone can benefit from the modifications
@@ -135,7 +135,7 @@ function rps_availFreeDiskSpace() {
 }
 
 function checkForLogDirectory() {
-	# make sure that RetroPie-Setup log directory exists
+	# make sure that RetroPx86-Setup log directory exists
 	if [[ ! -d $scriptdir/logs ]]; then
 	    mkdir -p "$scriptdir/logs"
 	    chown $user "$scriptdir/logs"
@@ -159,7 +159,7 @@ fi
 home=$(eval echo ~$user)
 
 rootdir=/opt/retropie
-homedir="$home/RetroPie"
+homedir="$home/RetroPx86"
 romdir="$homedir/roms"
 if [[ ! -d $romdir ]]; then
 	mkdir $romdir
@@ -190,12 +190,12 @@ fi
 rps_availFreeDiskSpace 800000
 
 while true; do
-    cmd=(dialog --backtitle "PetRockBlock.com - RetroPie Setup. Installation folder: $rootdir for user $user" --menu "Choose installation either based on binaries or on sources." 22 76 16)
+    cmd=(dialog --backtitle "PetRockBlock.com - RetroPx86 Setup. Installation folder: $rootdir for user $user" --menu "Choose installation either based on binaries or on sources." 22 76 16)
     options=(1 "Binaries-based INSTALLATION (faster, but possibly not up-to-date)"
              2 "Source-based INSTALLATION (16-20 hours (!), but up-to-date versions)"
              3 "SETUP (only if you already have run one of the installations above)"
-             4 "UPDATE RetroPie Setup script"
-             5 "UPDATE RetroPie Binaries"
+             4 "UPDATE RetroPx86 Setup script"
+             5 "UPDATE RetroPx86 Binaries"
              7 "Perform REBOOT" )
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choices" != "" ]; then

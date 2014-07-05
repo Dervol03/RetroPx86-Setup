@@ -7,13 +7,13 @@ import os
 
 # path variables
 home                = os.path.expanduser("~")
-retroarch_main_cfg  = home + '/RetroPie/configs/all/retroarch.cfg'
-retroarch_input_cfg = home + '/RetroPie/configs/all/retroarchinput.cfg'
+retroarch_main_cfg  = home + '/RetroPx86/configs/all/retroarch.cfg'
+retroarch_input_cfg = home + '/RetroPx86/configs/all/retroarchinput.cfg'
 gngeo_main_cfg      = home + '/.gngeo/gngeorc'
 gngeo_input_cfg     = home + '/.gngeo/gngeorcinput'
-dgen_main_cfg       = home + '/RetroPie/configs/all/dgenrc'
-dgen_input_cfg      = home + '/RetroPie/configs/all/dgenrcinput'
-es_config_path	    = home + '/RetroPie/supplementary/ES-config'
+dgen_main_cfg       = home + '/RetroPx86/configs/all/dgenrc'
+dgen_input_cfg      = home + '/RetroPx86/configs/all/dgenrcinput'
+es_config_path	    = home + '/RetroPx86/supplementary/ES-config'
 section = 'start'
 	
 # 
@@ -45,8 +45,8 @@ open(dgen_input_cfg,'w').close()
 open(gngeo_input_cfg,'w').close()
 
 # settings.xml should look like this
-#<changeConfigPath from="retroarch.cfg" to="/home/pi/RetroPie/configs/all/retroarchinput.cfg" />
-#<changeConfigPath from="dgen.cfg" to="/home/pi/RetroPie/configs/all/dgenrcinput" />
+#<changeConfigPath from="retroarch.cfg" to="/home/pi/RetroPx86/configs/all/retroarchinput.cfg" />
+#<changeConfigPath from="dgen.cfg" to="/home/pi/RetroPx86/configs/all/dgenrcinput" />
 #<changeConfigPath from="gngeo.rc" to="/home/pi/.gngeo/gngeorcinput" />
 
 # start ES-Config	
@@ -157,8 +157,8 @@ if os.path.getsize(gngeo_input_cfg) > 0:
 	if os.path.exists(gngeo_main_cfg) == True:
 		shutil.copyfile(gngeo_main_cfg, gngeo_main_cfg + '.bak')
 	else:
-		if os.path.exists(home + '/RetroPie/emulators/gngeo-0.7/sample_gngeorc') == True:
-			shutil.copyfile(home + '/RetroPie/emulators/gngeo-0.7/sample_gngeorc', gngeo_main_cfg)
+		if os.path.exists(home + '/RetroPx86/emulators/gngeo-0.7/sample_gngeorc') == True:
+			shutil.copyfile(home + '/RetroPx86/emulators/gngeo-0.7/sample_gngeorc', gngeo_main_cfg)
 		else:
 			open(gngeo_main_cfg,'w').close()			
 

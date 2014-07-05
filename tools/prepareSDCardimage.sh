@@ -22,8 +22,8 @@ rm ~/.bash_history
 # e2fsck -f -y -v /dev/sdaX
 
 # read and compress image of SD card with
-#   dd if=/dev/disk2 bs=2m of=RetroPieImage_verX.img count=1650
-#   zip -9 RetroPieImage_verX.zip RetroPieImage_verX.img
+#   dd if=/dev/disk2 bs=2m of=RetroPx86Image_verX.img count=1650
+#   zip -9 RetroPx86Image_verX.zip RetroPx86Image_verX.img
 
 # create SHA1 hash with 
-#   shasum RetroPieImage_verX.zip
+#   shasum RetroPx86Image_verX.zip

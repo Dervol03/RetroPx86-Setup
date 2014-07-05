@@ -1,14 +1,14 @@
 #!/bin/bash
 
-#  RetroPie-Setup - Shell script for initializing Raspberry Pi 
+#  RetroPx86-Setup - Shell script for initializing Raspberry Pi 
 #  with RetroArch, various cores, and EmulationStation (a graphical 
 #  front end).
 # 
 #  (c) Copyright 2012-2014  Florian Müller (contact@petrockblock.com)
 # 
-#  RetroPie-Setup homepage: https://github.com/petrockblog/RetroPie-Setup
+#  RetroPx86-Setup homepage: https://github.com/Dervol03/RetroPx86-Setup
 # 
-#  Permission to use, copy, modify and distribute RetroPie-Setup in both binary and
+#  Permission to use, copy, modify and distribute RetroPx86-Setup in both binary and
 #  source form, for non-commercial purposes, is hereby granted without fee,
 #  providing that this license information and copyright notice appear with
 #  all copies and any derived work.
@@ -17,9 +17,9 @@
 #  warranty. In no event shall the authors be held liable for any damages
 #  arising from the use of this software.
 # 
-#  RetroPie-Setup is freeware for PERSONAL USE only. Commercial users should
+#  RetroPx86-Setup is freeware for PERSONAL USE only. Commercial users should
 #  seek permission of the copyright holders first. Commercial use includes
-#  charging money for RetroPie-Setup or software derived from RetroPie-Setup.
+#  charging money for RetroPx86-Setup or software derived from RetroPx86-Setup.
 # 
 #  The copyright holders request that bug fixes and improvements to the code
 #  should be forwarded to them so everyone can benefit from the modifications
@@ -121,15 +121,15 @@ if [[ $doAbort -eq 1 ]]; then
 fi
 
 echo "Creating the archive file"
-tar -c -vf /home/pi/RetroPieSetupBinaries_`date +%d%m%y`.tar ${filelist[0]} --exclude-vcs --exclude="*.o"
+tar -c -vf /home/pi/RetroPx86SetupBinaries_`date +%d%m%y`.tar ${filelist[0]} --exclude-vcs --exclude="*.o"
 
 for (( i=1; i<${tLen}; i++ ));
 do
-	tar -r -vf /home/pi/RetroPieSetupBinaries_`date +%d%m%y`.tar ${filelist[$i]} --exclude-vcs --exclude="*.o"
+	tar -r -vf /home/pi/RetroPx86SetupBinaries_`date +%d%m%y`.tar ${filelist[$i]} --exclude-vcs --exclude="*.o"
 done
 
 echo "Compressing the archive file"
-bzip2 /home/pi/RetroPieSetupBinaries_`date +%d%m%y`.tar
+bzip2 /home/pi/RetroPx86SetupBinaries_`date +%d%m%y`.tar
 
 echo "Done."
 
