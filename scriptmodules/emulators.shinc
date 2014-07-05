@@ -127,7 +127,7 @@ function configure_retroarch() {
         mkdir -p "$rootdir/emulators/RetroArch/shader"
     fi
     cp -r $scriptdir/supplementary/RetroArchShader/* $rootdir/emulators/RetroArch/shader/
-    for f in `ls "$rootdir/emulators/RetroArch/shader/*.glslp"`; 
+    for f in `ls $rootdir/emulators/RetroArch/shader/*.glslp`; 
     do 
         sed -i "s|/home/pi/RetroPx86|$rootdir|g" $f
     done
