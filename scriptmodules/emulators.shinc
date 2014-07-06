@@ -689,21 +689,35 @@ _EOF_
 }
 
 function sources_mupen64rpi() {
-    apt-get install pkg-config zlib1g-dev libpng12-dev libsdl2-dev -y
+    #apt-get install pkg-config zlib1g-dev libpng12-dev libsdl2-dev -y
     printMsg "Getting sources of N64 emulator Mupen 64 Plus RPi"
-    if [[ -d "$rootdir/emulators/mupen64plus-rpi" ]]; then
-        rm -rf "$rootdir/emulators/mupen64plus-rpi"
-    fi   
-    gitPullOrClone "$rootdir/emulators/mupen64plus-rpi" https://github.com/ricrpi/mupen64plus-rpi
+    if [[ -d "$rootdir/emulators/mupen64plus" ]]; then
+        rm -rf "$rootdir/emulators/mupen64plus"
+    fi
+    #gitPullOrClone "$rootdir/emulators/mupen64plus-rpi" https://github.com/ricrpi/mupen64plus-rpi
+
+    download_file="https://mupen64plus.googlecode.com/files/mupen64plus-bundle-linux32-2.0.tar.gz"
+    [[ $(grep 'amd64' /proc/version | wc -l) -eq 1 ]] && download_file="https://mupen64plus.googlecode.com/files/mupen64plus-bundle-linux64-2.0.tar.gz"
+    [[ $(grep -ie 'ubuntu" /proc/version | wc -l) -eq 1 ]] && download_file="https://mupen64plus.googlecode.com/files/mupen64plus-bundle-linux64-2.0-ubuntu.tar.gz"
+
+    mkdir -p $rootdir/emulators/mupen64plus
+    wget -O $rootdir/emulators/mupen64plus/mupen64plus.tar.gz
 }
 
 function build_mupen64rpi() {
     printMsg "Building N64 emulator Mupen 64 Plus RPi"
-    pushd "$rootdir/emulators/mupen64plus-rpi"
-    ./m64p_build.sh
-    if [[ ! -f "$rootdir/emulators/mupen64plus-rpi/test/mupen64plus" ]]; then
-        __ERRMSGS="$__ERRMSGS Could not successfully compile Mupen 64 Plus RPi."
-    fi      
+    pushd "$rootdir/emulators/mupen64plus"
+
+    tar -xf mupen64plus.tar.gz
+    rm mupen64plus.tar.gz
+    pushd "mupen64plus*"
+    ./install.sh
+    popd
+
+    #./m64p_build.sh
+    #if [[ ! -f "$rootdir/emulators/mupen64plus-rpi/test/mupen64plus" ]]; then
+    #    __ERRMSGS="$__ERRMSGS Could not successfully compile Mupen 64 Plus RPi."
+    #fi
     popd
 }
 
