@@ -184,6 +184,9 @@ if [ $(id -u) -ne 0 ]; then
     exit 1
 fi   
 
+export ARCHITECTURE="x86"
+[[ $(grep "amd64" /proc/version | wc -l) -ew 1 ]] && export ARCHITECTURE="amd64"
+
 scriptdir=`dirname $0`
 scriptdir=`cd $scriptdir && pwd`
 

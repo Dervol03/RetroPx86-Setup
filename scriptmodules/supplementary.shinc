@@ -78,27 +78,36 @@ function depen_emulationstation() {
     printMsg "Getting dependencies for emulationstation"
     apt-get install -y libboost-system-dev libboost-filesystem-dev libboost-date-time-dev \
                        libfreeimage-dev libfreetype6-dev libeigen3-dev libcurl4-openssl-dev \
-                       libasound2-dev cmake g++-4.7 freeglut3 libsdl1.2-dev
+                       libasound2-dev cmake g++-4.7 libsdl2-dev libgl1-mesa-de
 }
 
 function sources_EmulationStation() {
-	printMsg "Getting sources of EmulationStation"
-	# sourced of EmulationStation
-	gitPullOrClone "$rootdir/supplementary/EmulationStation" "https://github.com/Aloshi/EmulationStation" || return 1
-	pushd "$rootdir/supplementary/EmulationStation" || return 1
-    git pull || return 1
-	git checkout unstable || return 1
-	popd
+  if [[ ARCHITECTURE == "amd64" ]];then
+    wget -O $rootdir/supplementary/EmulationStation/emulationstation.deb http://emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb
+  else
+    printMsg "Getting sources of EmulationStation"
+    # sourced of EmulationStation
+    gitPullOrClone "$rootdir/supplementary/EmulationStation" "https://github.com/Aloshi/EmulationStation" || return 1
+    pushd "$rootdir/supplementary/EmulationStation" || return 1
+      git pull || return 1
+    popd
+  fi
 }
 
 function build_EmulationStation() {
-	printMsg "Building EmulationStation"
+  printMsg "Building EmulationStation"
 
-	# EmulationStation
-	pushd "$rootdir/supplementary/EmulationStation" || return 1
-	cmake -D CMAKE_CXX_COMPILER=g++-4.7 . || return 1
-	make || return 1
-	popd
+  # EmulationStation
+  pushd "$rootdir/supplementary/EmulationStation" || return 1
+
+  if [[ ARCHITECTURE == "adm64" ]]
+    dpkg -i emulationstation.deb || return 1
+    rm emulationstation.deb
+  else
+    cmake -D CMAKE_CXX_COMPILER=g++-4.7 . || return 1
+    make || return 1
+  fi
+  popd
 }
 
 function install_EmulationStation() {
@@ -126,7 +135,7 @@ _EOF_
 	fi
 
     # make sure that ES has enough GPU memory
-    ensureKeyValueBootconfig "gpu_mem" 256 "/boot/config.txt"    
+    ensureKeyValueBootconfig "gpu_mem" 1048 "/boot/config.txt"
     ensureKeyValueBootconfig "overscan_scale" 1 "/boot/config.txt"    
 }
 
