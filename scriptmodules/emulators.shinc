@@ -697,7 +697,7 @@ function sources_mupen64rpi() {
 
     apt-get install pkg-config zlib1g-dev libminizip-dev -y #libpng12-dev libsdl2-dev -y
 
-    if [[ $(locate libpng | grep 'libpng15' | wc -l) -eq 0) ]]; then
+    if [[ $(locate libpng | grep 'libpng15' | wc -l) -eq 0 ]]; then
 
       mkdir -p $rootdir/emulators/mupen64plus
       pushd "$rootdir/emulators/mupen64plus"
