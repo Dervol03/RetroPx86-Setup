@@ -194,7 +194,7 @@ function package_retroarch() {
 # 101, AdvMAME
 function depen_advmame() {
     printMsg "Getting dependencies of advmame"
-    apt-get -y install libsdl1.2-dev gcc-4.7
+    apt-get -y install libsdl2-2.0-0 g++-4.7
 }
 
 function sources_advmame() {
@@ -208,6 +208,7 @@ function build_advmame() {
     export CC=gcc-4.7
     export GCC=g++-4.7
 
+    mkdir -p $rootdir/emulators
     tar xzvf advmame.tar.gz -C "$rootdir/emulators/"
     pushd "$rootdir/emulators/advancemame-0.94.0"
     sed 's/MAP_SHARED | MAP_FIXED,/MAP_SHARED,/' <advance/linux/vfb.c >advance/linux/temp.c
@@ -243,6 +244,7 @@ function configure_advmame() {
     printMsg "Configuring AdvMAME"
 
     $rootdir/emulators/advancemame-0.94.0/installdir/bin/advmame
+    printMsg "Moving .advance to /home/$user/"
     mv /root/.advance/ /home/$user/
     echo 'device_video_clock 5 - 50 / 15.62 / 50 ; 5 - 50 / 15.73 / 60' >> /home/$user/.advance/advmame.rc
     chmod -R a+rwX /home/$user/.advance/
