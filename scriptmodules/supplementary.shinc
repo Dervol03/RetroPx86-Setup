@@ -76,13 +76,18 @@ function install_sdl() {
 # 303, Emulation Station ----------------------
 function depen_emulationstation() {
     printMsg "Getting dependencies for emulationstation"
-    apt-get install -y libboost-system-dev libboost-filesystem-dev libboost-date-time-dev \
-                       libfreeimage-dev libfreetype6-dev libeigen3-dev libcurl4-openssl-dev \
-                       libasound2-dev cmake g++-4.7 libsdl2-dev libgl1-mesa-dev
+    #apt-get install -y libboost-system-dev libboost-filesystem-dev libboost-date-time-dev \
+    #                   libfreeimage-dev libfreetype6-dev libeigen3-dev libcurl4-openssl-dev \
+    #                   libasound2-dev cmake g++-4.7 libsdl2-dev libgl1-mesa-dev
+    apt-get install libboost-filesystem1.54.0 libcurl3 libfreeimage3 libsdl2-2.0-0 -y
+    apt-get -f install -y
+    apt-get install libboost-filesystem1.54.0 libcurl3 libfreeimage3 libsdl2-2.0-0 -y
 }
 
 function sources_EmulationStation() {
-  if [[ ARCHITECTURE == "amd64" ]];then
+  mkdir -p $rootdir/supplementary/EmulationStation
+
+  if [[ $(grep 'amd64' /proc/version | wc -l) -eq 1 ]]; then
     wget -O $rootdir/supplementary/EmulationStation/emulationstation.deb http://emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb
   else
     printMsg "Getting sources of EmulationStation"
@@ -100,7 +105,7 @@ function build_EmulationStation() {
   # EmulationStation
   pushd "$rootdir/supplementary/EmulationStation" || return 1
 
-  if [[ ARCHITECTURE == "adm64" ]]
+  if [[ $(grep 'amd64' /proc/version | wc -l) -eq 1 ]]; then
     dpkg -i emulationstation.deb || return 1
     rm emulationstation.deb
   else
