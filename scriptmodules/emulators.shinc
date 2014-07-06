@@ -689,6 +689,7 @@ _EOF_
 }
 
 function sources_mupen64rpi() {
+    apt-get install pkg-config zlib1g-dev libpng12-dev libsdl2-dev -y
     printMsg "Getting sources of N64 emulator Mupen 64 Plus RPi"
     if [[ -d "$rootdir/emulators/mupen64plus-rpi" ]]; then
         rm -rf "$rootdir/emulators/mupen64plus-rpi"
