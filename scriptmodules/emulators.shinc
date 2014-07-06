@@ -732,7 +732,7 @@ function build_mupen64rpi() {
     ./install.sh
 
     #./m64p_build.sh
-    #if [[ ! -f "$rootdir/emulators/mupen64plus-rpi/test/mupen64plus" ]]; then
+    #if [[ ! -f "$rootdir/emulators/mupen64plus/test/mupen64plus" ]]; then
     #    __ERRMSGS="$__ERRMSGS Could not successfully compile Mupen 64 Plus RPi."
     #fi
     popd
