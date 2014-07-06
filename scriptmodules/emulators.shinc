@@ -689,19 +689,36 @@ _EOF_
 }
 
 function sources_mupen64rpi() {
-    #apt-get install pkg-config zlib1g-dev libpng12-dev libsdl2-dev -y
-    printMsg "Getting sources of N64 emulator Mupen 64 Plus RPi"
+    printMsg "Getting dependencies for Mupen 64 Plus"
     if [[ -d "$rootdir/emulators/mupen64plus" ]]; then
         rm -rf "$rootdir/emulators/mupen64plus"
     fi
     #gitPullOrClone "$rootdir/emulators/mupen64plus-rpi" https://github.com/ricrpi/mupen64plus-rpi
 
+    apt-get install pkg-config zlib1g-dev libminizip-dev -y #libpng12-dev libsdl2-dev -y
+
+    if [[ $(locate libpng | grep 'libpng15' | wc -l) -eq 0) ]]; then
+
+      mkdir -p $rootdir/emulators/mupen64plus
+      pushd "$rootdir/emulators/mupen64plus"
+
+      wget -O libpng.tar.gz http://sourceforge.net/projects/libpng/files/libpng15/1.5.18/libpng-1.5.18.tar.gz/download
+      tar -xf libpng.tar.gz
+      pushd libpng-1.5.18
+      ./configure --prefix=/usr/local/libpng || return 1
+      make check || return 1
+      make install || return 1
+      ln -s /usr/local/libpng/lib/libpng15.so.15 /usr/lib/libpng.15.0.15
+    fi
+
+
+    printMsg "Getting sources of N64 emulator Mupen 64 Plus"
+
     download_file="https://mupen64plus.googlecode.com/files/mupen64plus-bundle-linux32-2.0.tar.gz"
     [[ $(grep 'amd64' /proc/version | wc -l) -eq 1 ]] && download_file="https://mupen64plus.googlecode.com/files/mupen64plus-bundle-linux64-2.0.tar.gz"
-    [[ $(grep -ie 'ubuntu" /proc/version | wc -l) -eq 1 ]] && download_file="https://mupen64plus.googlecode.com/files/mupen64plus-bundle-linux64-2.0-ubuntu.tar.gz"
+    [[ $(grep -ie 'ubuntu' /proc/version | wc -l) -eq 1 ]] && download_file="https://mupen64plus.googlecode.com/files/mupen64plus-bundle-linux64-2.0-ubuntu.tar.gz"
 
-    mkdir -p $rootdir/emulators/mupen64plus
-    wget -O $rootdir/emulators/mupen64plus/mupen64plus.tar.gz
+    wget -O $rootdir/emulators/mupen64plus/mupen64plus.tar.gz $download_file
 }
 
 function build_mupen64rpi() {
@@ -710,9 +727,9 @@ function build_mupen64rpi() {
 
     tar -xf mupen64plus.tar.gz
     rm mupen64plus.tar.gz
-    pushd "mupen64plus*"
+    mv mupen64plus*/* .
+    rm $(ls -tr | tail -n 1)
     ./install.sh
-    popd
 
     #./m64p_build.sh
     #if [[ ! -f "$rootdir/emulators/mupen64plus-rpi/test/mupen64plus" ]]; then
