@@ -105,6 +105,19 @@ function initImport() {
 }
 
 function rps_checkNeededPackages() {
+    # Some packages existing by default in Ubuntu repos need to be loaded from jessie under Debian
+    if [[ $(grep -ie "debian" /proc/version | wc -l) -ne 0 ]]; then
+        echo "You are running Debian, checking for jessie repo in sources..."
+        if [[ $(grep -ie "jessie" /etc/apt/sources.list | wc -l) -eq 0 ]]; then
+          echo "installing jessie repo to sources..."
+          echo "deb http://ftp.de.debian.org/debian jessie main" >> /etc/apt/sources.list
+          apt-get update
+          echo "Installation if jessie completed."
+        else
+          echo "jessie is already installed, no changes made."
+        fi
+    fi
+
     if [[ -z $(type -P git) || -z $(type -P dialog) || -z $(type -P g++) ]]; then
         echo "Did not find needed packages 'git' and/or 'dialog', 'g++'. I am trying to install these now."
         apt-get update
