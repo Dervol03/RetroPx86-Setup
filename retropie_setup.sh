@@ -105,10 +105,10 @@ function initImport() {
 }
 
 function rps_checkNeededPackages() {
-    if [[ -z $(type -P git) || -z $(type -P dialog) ]]; then
-        echo "Did not find needed packages 'git' and/or 'dialog'. I am trying to install these now."
+    if [[ -z $(type -P git) || -z $(type -P dialog) || -z $(type -P g++) ]]; then
+        echo "Did not find needed packages 'git' and/or 'dialog', 'g++'. I am trying to install these now."
         apt-get update
-        apt-get install -y git dialog
+        apt-get install -y git dialog g++
         if [ $? == '0' ]; then
             echo "Successfully installed 'git' and/or 'dialog'."
         else
@@ -162,7 +162,7 @@ rootdir=/opt/retropie
 homedir="$home/RetroPx86"
 romdir="$homedir/roms"
 if [[ ! -d $romdir ]]; then
-	mkdir $romdir
+	mkdir -p $romdir
 fi
 
 # check, if sudo is used
