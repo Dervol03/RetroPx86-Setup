@@ -25,7 +25,7 @@
 
 function depen_retroarch() {
     printMsg "Getting depencies of udev/eudev"
-    apt-get install -y libudev-dev g++ pkg-config freeglut3-dev libxkbcommon-dev
+    apt-get install -y libudev-dev g++ pkg-config freeglut3-dev libxkbcommon-dev libasound2-dev
     cat > "/etc/udev/rules.d/99-evdev.rules" << _EOF_
 KERNEL=="event*", NAME="input/%k", MODE="666"
 _EOF_
