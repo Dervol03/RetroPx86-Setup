@@ -708,7 +708,7 @@ function sources_mupen64rpi() {
       ./configure --prefix=/usr/local/libpng || return 1
       make check || return 1
       make install || return 1
-      ln -s /usr/local/libpng/lib/libpng15.so.15 /usr/lib/libpng.15.0.15
+      ln -s /usr/local/libpng/lib/libpng15.so.15 /usr/lib/libpng15.0.15
     fi
 
 
@@ -728,7 +728,7 @@ function build_mupen64rpi() {
     tar -xf mupen64plus.tar.gz
     rm mupen64plus.tar.gz
     mv mupen64plus*/* .
-    rm $(ls -tr | tail -n 1)
+    rm -rf $(ls -tr | tail -n 1)
     ./install.sh
 
     #./m64p_build.sh
