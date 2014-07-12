@@ -151,7 +151,6 @@ function rps_main_options()
              #116 "Intellivision emulator         " ON \
              #117 "Apple 2 emulator Linapple      " ON \
              #120 "FBA emulator PiFBA             " ON \
-             #121 "SNES emulator PiSNES           " ON \
              #122 "DOS Emulator rpix86            " ON \
              #123 "ScummVM                        " ON \
              #124 "ZMachine                       " ON \
@@ -188,7 +187,8 @@ function rps_main_options()
     cmd=(dialog --separate-output --backtitle "PetRockBlock.com - RetroPx86 Setup. Installation folder: $rootdir for user $user" --checklist "Select options with 'space' and arrow keys. The default selection installs a complete set of packages and configures basic settings. The entries marked as (C) denote the configuration steps. For an update of an installation you would deselect these to keep all your settings untouched." 22 76 16)
     options=(100 "RetroArch                      " OFF \
              118 "N64 emulator MUPEN64Plus-RPi   " OFF \
-             119 "SNES emulator SNES9X-RPi       " ON \
+             119 "SNES emulator SNES9X-RPi       " OFF \
+             121 "SNES emulator PiSNES           " ON \
              303 "EmulationStation               " OFF \
              323 "Install SDL 2.0.1 binaries     " OFF )
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
