@@ -188,7 +188,6 @@ function rps_main_options()
     options=(100 "RetroArch                      " OFF \
              118 "N64 emulator MUPEN64Plus-RPi   " OFF \
              119 "SNES emulator SNES9X-RPi       " OFF \
-             121 "SNES emulator PiSNES           " ON \
              303 "EmulationStation               " OFF \
              323 "Install SDL 2.0.1 binaries     " OFF )
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -223,7 +222,6 @@ function rps_main_options()
                 118) source $scriptdir/retropie_packages.sh 118 2>&1 | tee >(gzip --stdout >$logfilename) ;;
                 119) source $scriptdir/retropie_packages.sh 119 2>&1 | tee >(gzip --stdout >$logfilename) ;;
                 120) source $scriptdir/retropie_packages.sh 120 2>&1 | tee >(gzip --stdout >$logfilename) ;;
-                121) source $scriptdir/retropie_packages.sh 121 2>&1 | tee >(gzip --stdout >$logfilename) ;;
                 122) source $scriptdir/retropie_packages.sh 122 2>&1 | tee >(gzip --stdout >$logfilename) ;;
                 123) source $scriptdir/retropie_packages.sh 123 2>&1 | tee >(gzip --stdout >$logfilename) ;;
                 124) source $scriptdir/retropie_packages.sh 124 2>&1 | tee >(gzip --stdout >$logfilename) ;;
