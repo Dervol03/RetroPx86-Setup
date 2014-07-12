@@ -186,10 +186,10 @@ function rps_main_options()
              #317 "Disable system timeouts        " ON \
              #318 "Handle APT packages            " ON \
     cmd=(dialog --separate-output --backtitle "PetRockBlock.com - RetroPx86 Setup. Installation folder: $rootdir for user $user" --checklist "Select options with 'space' and arrow keys. The default selection installs a complete set of packages and configures basic settings. The entries marked as (C) denote the configuration steps. For an update of an installation you would deselect these to keep all your settings untouched." 22 76 16)
-    options=(100 "RetroArch                      " ON \
-             118 "N64 emulator MUPEN64Plus-RPi   " ON \
+    options=(100 "RetroArch                      " OFF \
+             118 "N64 emulator MUPEN64Plus-RPi   " OFF \
              119 "SNES emulator SNES9X-RPi       " ON \
-             303 "EmulationStation               " ON \
+             303 "EmulationStation               " OFF \
              323 "Install SDL 2.0.1 binaries     " OFF )
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     clear
