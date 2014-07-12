@@ -744,7 +744,7 @@ function configure_mupen64rpi() {
 }
 
 function depen_snes9x() {
-    apt-get update && apt-get install -y libsdl-dev libboost-thread-dev
+    apt-get update && apt-get install -y libsdl2-dev libboost-thread-dev gnome-keyring
 }
 
 function sources_snes9x() {
