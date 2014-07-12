@@ -444,8 +444,8 @@ function configure_EmulationStation() {
         <name>snes</name>
         <path>~/RetroPx86/roms/snes</path>
         <extension>.smc .sfc .fig .swc .SMC .SFC .FIG .SWC</extension>
-        <command>$rootdir/supplementary/runcommand/runcommand.sh 4 "$rootdir/emulators/RetroArch/installdir/bin/retroarch -L `find $rootdir/emulatorcores/pocketsnes-libretro/ -name "*libretro*.so" | head -1` --config $rootdir/configs/all/retroarch.cfg --appendconfig $rootdir/configs/snes/retroarch.cfg $__tmpnetplaymode$__tmpnetplayhostip_cfile $__tmpnetplayport$__tmpnetplayframes %ROM%"</command>
-        <!-- alternatively: <command>$rootdir/emulators/snes9x-rpi/snes9x %ROM%</command> -->
+        <!-- normael retropie command: <command>$rootdir/supplementary/runcommand/runcommand.sh 4 "$rootdir/emulators/RetroArch/installdir/bin/retroarch -L `find $rootdir/emulatorcores/pocketsnes-libretro/ -name "*libretro*.so" | head -1` --config $rootdir/configs/all/retroarch.cfg --appendconfig $rootdir/configs/snes/retroarch.cfg $__tmpnetplaymode$__tmpnetplayhostip_cfile $__tmpnetplayport$__tmpnetplayframes %ROM%"</command> -->
+        <command>$rootdir/emulators/snes9x-rpi/snes9x %ROM%</command>
         <!-- alternatively: <command>$rootdir/emulators/pisnes/snes9x %ROM%</command> -->
         <platform>snes</platform>
         <theme>snes</theme>
