@@ -30,36 +30,27 @@ function depen_retroarch() {
 KERNEL=="event*", NAME="input/%k", MODE="666"
 _EOF_
     sudo chmod 666 /dev/input/event*
+    
 }
 
 function sources_retroarch() {
     printMsg "Getting sources of RetroArch"
-    gitPullOrClone "$rootdir/emulators/RetroArch" git://github.com/libretro/RetroArch.git
+    apt-add-repository ppa:hunter-kaller/ppa
+    apt-get update
 }
 
 function build_retroarch() {
     printMsg "Building RetroArch"
-    pushd "$rootdir/emulators/RetroArch"
-    ./configure --prefix="$rootdir/emulators/RetroArch/installdir" --disable-x11 --disable-oss --disable-pulse
-    make clean
-    make
-    popd
+    mkdir -p $rootdir/emulators/RetroArch/installdir
 }
 
 function install_retroarch() {
     printMsg "Installing RetroArch"
-    pushd "$rootdir/emulators/RetroArch"
-    make install
-    popd
-    if [[ ! -f "$rootdir/emulators/RetroArch/installdir/bin/retroarch" ]]; then
-        __ERRMSGS="$__ERRMSGS Could not successfully compile and install RetroArch."
-    fi  
+    apt-get install -y retroarch libretro-fceu
 }
 
 function configure_retroarch() {
     printMsg "Configuring RetroArch"
-
-    cp $scriptdir/supplementary/retroarch-zip "$rootdir/emulators/RetroArch/installdir/bin/"
 
     if [[ ! -d "$rootdir/emulators/RetroArch/configs/" ]]; then
         mkdir -p "$rootdir/emulators/RetroArch/configs/"
@@ -749,33 +740,19 @@ function depen_snes9x() {
 
 function sources_snes9x() {
     printMsg "Getting sources of SNES9X-RPi emulator"    
-    if [[ -d "$rootdir/emulators/snes9x-rpi" ]]; then
-        rm -rf "$rootdir/emulators/snes9x-rpi"
-    fi        
-    gitPullOrClone "$rootdir/emulators/snes9x-rpi" https://github.com/snes9xgit/snes9x.git
+    apt-add-repository ppa:hunter-kaller/ppa
+    apt-get update
 }
 
 function build_snes9x() {
     printMsg "Building SNES9X-RPi emulator"    
 
-    pushd "$rootdir/emulators/snes9x-rpi/unix"
-    ./configure --prefix=$rootdir/emulators/snes9x-rpi
-
-    make clean
-    make
-
-    if [[ ! -f "$rootdir/emulators/snes9x-rpi/snes9x" ]]; then
-        __ERRMSGS="$__ERRMSGS Could not successfully compile SNES9X."
-    fi      
-    popd
+    mkdir -p $rootdir/emulators/snes9x-rpi/unix
+    apt-get install -y retroarch libretro-snes9x-next
 }
 
 function configure_snes9x() {
     printMsg "Configuring SNES9X-RPi emulator"    
-    #if [[ -z `grep "mode \"320x240\"" /etc/fb.modes` ]]; then
-    #    echo -e "mode \"320x240\"\ngeometry 320 240 656 512 16\ntimings 0 0 0 0 0 0 0\nrgba 5/11,6/5,5/0,0/16\nendmode" | cat - /etc/fb.modes > temp && mv temp /etc/fb.modes
-    fi
-
     mkdir -p "$romdir/snes"
 }
 

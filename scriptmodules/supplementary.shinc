@@ -87,7 +87,7 @@ function depen_emulationstation() {
 function sources_EmulationStation() {
   mkdir -p $rootdir/supplementary/EmulationStation
 
-  if [[ $(grep 'amd64' /proc/version | wc -l) -eq 1 ]]; then
+  if [[ $(grep 'amd64' /proc/version | wc -l) -eq 1 ]] || [[ $(uname -a | grep '86_64' | wc -l) -eq 1 ]]; then
     wget -O $rootdir/supplementary/EmulationStation/emulationstation.deb http://emulationstation.org/downloads/releases/emulationstation_amd64_latest.deb
   else
     printMsg "Getting sources of EmulationStation"
@@ -105,7 +105,7 @@ function build_EmulationStation() {
   # EmulationStation
   pushd "$rootdir/supplementary/EmulationStation" || return 1
 
-  if [[ $(grep 'amd64' /proc/version | wc -l) -eq 1 ]]; then
+  if [[ $(grep 'amd64' /proc/version | wc -l) -eq 1 ]] || [[ $(uname -a | grep '86_64' | wc -l) -eq 1 ]]; then
     dpkg -i emulationstation.deb || return 1
     rm emulationstation.deb
   else
@@ -118,7 +118,7 @@ function build_EmulationStation() {
 function install_EmulationStation() {
 	printMsg "Installing EmulationStation"
 
-  if [[ $(grep 'amd64' /proc/version | wc -l) -eq 0 ]]; then
+  if [[ $(grep 'amd64' /proc/version | wc -l) -eq 0 ]] && [[ $(uname -a | grep '86_64' | wc -l) -eq 0 ]]; then
     ln -s "$rootdir/supplementary/EmulationStation/emulationstation" /usr/bin/emulationstation
   fi
 
@@ -336,7 +336,7 @@ function configure_EmulationStation() {
         <name>nes</name>
         <path>~/RetroPx86/roms/nes</path>
         <extension>.nes .NES</extension>
-        <command>$rootdir/supplementary/runcommand/runcommand.sh 4 "$rootdir/emulators/RetroArch/installdir/bin/retroarch -L `find $rootdir/emulatorcores/fceu-next/fceumm-code/ -name "*libretro*.so" | head -1` --config $rootdir/configs/all/retroarch.cfg --appendconfig $rootdir/configs/nes/retroarch.cfg $__tmpnetplaymode$__tmpnetplayhostip_cfile$__tmpnetplayport$__tmpnetplayframes %ROM%"</command>
+        <command>retroarch -L /usr/lib/libretro/fceumm_libretro.so --config $rootdir/configs/all/retroarch.cfg --appendconfig $rootdir/configs/nes/retroarch.cfg --fullscreen %ROM%</command>
         <platform>nes</platform>
         <theme>nes</theme>
     </system>
@@ -346,7 +346,7 @@ function configure_EmulationStation() {
         <name>n64</name>
         <path>~/RetroPx86/roms/n64</path>
         <extension>.z64 .Z64 .n64 .N64 .v64 .V64</extension>
-        <command>$rootdir/supplementary/runcommand/runcommand.sh 1 "cd $rootdir/emulators/mupen64plus && ./mupen64plus %ROM%"</command>
+        <command>cd $rootdir/emulators/mupen64plus && ./mupen64plus --fullscreen %ROM%"</command>
         <platform>n64</platform>
         <theme>n64</theme>
     </system>
@@ -434,7 +434,7 @@ function configure_EmulationStation() {
         <name>psx</name>
         <path>~/RetroPx86/roms/psx</path>
         <extension>.img .IMG .7z .7Z .pbp .PBP .bin .BIN .cue .CUE</extension>
-        <command>$rootdir/supplementary/runcommand/runcommand.sh 1 "$rootdir/emulators/RetroArch/installdir/bin/retroarch -L `find $rootdir/emulatorcores/pcsx_rearmed/ -name "*libretro*.so" | head -1` --config $rootdir/configs/all/retroarch.cfg --appendconfig $rootdir/configs/psx/retroarch.cfg %ROM%"</command>
+        <command>$rootdir/emulators/RetroArch/installdir/bin/retroarch -L `find $rootdir/emulatorcores/pcsx_rearmed/ -name "*libretro*.so" | head -1` --config $rootdir/configs/all/retroarch.cfg --appendconfig $rootdir/configs/psx/retroarch.cfg %ROM%</command>
         <platform>psx</platform>
         <theme>psx</theme>
     </system>
@@ -444,9 +444,7 @@ function configure_EmulationStation() {
         <name>snes</name>
         <path>~/RetroPx86/roms/snes</path>
         <extension>.smc .sfc .fig .swc .SMC .SFC .FIG .SWC</extension>
-        <!-- normael retropie command: <command>$rootdir/supplementary/runcommand/runcommand.sh 4 "$rootdir/emulators/RetroArch/installdir/bin/retroarch -L `find $rootdir/emulatorcores/pocketsnes-libretro/ -name "*libretro*.so" | head -1` --config $rootdir/configs/all/retroarch.cfg --appendconfig $rootdir/configs/snes/retroarch.cfg $__tmpnetplaymode$__tmpnetplayhostip_cfile $__tmpnetplayport$__tmpnetplayframes %ROM%"</command> -->
-        <command>$rootdir/emulators/snes9x-rpi/snes9x %ROM%</command>
-        <!-- alternatively: <command>$rootdir/emulators/pisnes/snes9x %ROM%</command> -->
+        <command>retroarch -L /usr/lib/libretro/snes9x_next_libretro.so --config $rootdir/configs/all/retroarch.cfg --appendconfig $rootdir/configs/snes/retroarch.cfg --fullscreen %ROM%</command>
         <platform>snes</platform>
         <theme>snes</theme>
     </system>
