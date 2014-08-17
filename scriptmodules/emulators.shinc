@@ -41,12 +41,14 @@ function sources_retroarch() {
 
 function build_retroarch() {
     printMsg "Building RetroArch"
-    mkdir -p $rootdir/emulators/RetroArch/installdir
+    mkdir -p $rootdir/emulators/RetroArch/installdir/bin
 }
 
 function install_retroarch() {
     printMsg "Installing RetroArch"
     apt-get install -y retroarch libretro-fceu
+    cp $scriptdir/supplementary/scripts/retroarch-joyconfig $rootdir/emulators/RetroArch/installdir/bin/
+    cp $scriptdir/supplementary/scripts/retroarch-configure-buttons $rootdir/emulators/RetroArch/installdir/bin/
 }
 
 function configure_retroarch() {
